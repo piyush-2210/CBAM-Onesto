@@ -58,7 +58,7 @@
             position: relative; /* Needed for absolute positioning of mobile dropdown */
         }
         .logo img {
-            max-height: 45px;
+            max-height: 55px;
             width: auto;
             display: block;
         }
@@ -641,30 +641,35 @@
         <p style="margin-bottom: 30px;">Rellena el formulario y uno de nuestros expertos CBAM se pondra en contacto contigo en menos de 24 horas.</p>
         
         <div class="form-container">
-            <form action="#" method="POST">
+            <form action="https://api.web3forms.com/submit" method="POST">
+                
+                <input type="hidden" name="access_key" value="b142ab5a-25f5-4441-aa61-040e7d6f7ab7">
+                
+                <input type="hidden" name="subject" value="Nuevo Lead CBAM - Landing Page">
+
                 <div class="form-group">
                     <label>Nombre completo *</label>
-                    <input type="text" required>
+                    <input type="text" name="Nombre" required>
                 </div>
                 <div class="form-group">
                     <label>Nombre de la empresa *</label>
-                    <input type="text" required>
+                    <input type="text" name="Empresa" required>
                 </div>
                 <div class="form-group">
                     <label>Correo electronico *</label>
-                    <input type="email" required>
+                    <input type="email" name="Email" required>
                 </div>
                 <div class="form-group">
                     <label>Telefono (opcional)</label>
-                    <input type="tel">
+                    <input type="tel" name="Telefono">
                 </div>
                 <div class="form-group">
                     <label>¿Desde que paises importas actualmente?</label>
-                    <input type="text">
+                    <input type="text" name="Paises_de_origen">
                 </div>
                 <div class="form-group">
                     <label>¿Cuales son tus principales productos de importacion?</label>
-                    <textarea rows="3"></textarea>
+                    <textarea name="Productos_de_importacion" rows="3"></textarea>
                 </div>
                 <button type="submit" class="btn-primary" style="width: 100%;">Solicitar consulta gratuita</button>
             </form>
@@ -692,10 +697,9 @@
             <div>
                 <h4>Enlaces rapidos</h4>
                 <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#cbam">Sobre nosotros</a></li>
+                    <li><a href="#hero">Sobre nosotros</a></li>
                     <li><a href="#servicios">Servicios</a></li>
-                    <li><a href="#faq">CBAM</a></li>
+                    <li><a href="#faq">FAQ</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </div>
@@ -749,5 +753,6 @@
 </body>
 
 </html>
+
 
 
