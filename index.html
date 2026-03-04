@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesoramiento CBAM | Onesto Management Consultancy</title>
+    <style>
+        :root {
+            --primary-color: #d4af37;
+            --primary-hover: #b5952f;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --bg-light: #ffffff;
+            --bg-alt: #f4f7f6;
+        }
+        
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3 {
+            margin-top: 0;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative; /* Needed for absolute positioning of mobile dropdown */
+        }
+        .logo img {
+            max-height: 45px;
+            width: auto;
+            display: block;
+        }
+        
+        /* Hamburger Icon for Mobile */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 5px;
+        }
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-main);
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+        .btn-nav {
+            background-color: var(--primary-color);
+            color: #ffffff !important;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn-nav:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background-color: #1a252f;
+            color: #ffffff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero .main-title {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .hero h1 {
+            color: #ffffff;
+            font-size: 2.5rem;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .hero .subtitle {
+            color: #d1d5db;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px auto;
+        }
+        .hero .small-text {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-top: 15px;
+            display: block;
+        }
+
+        /* Generic Sections */
+        .section-light { background-color: var(--bg-light); }
+        .section-alt { background-color: var(--bg-alt); }
+        .text-center { text-align: center; }
+
+        /* Grid / Cards */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .card {
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+            height: 100%;
+        }
+
+        /* Flex Columns (Section 5) */
+        .flex-columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+        .flex-columns .col {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        /* Products / Timeline */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .chip {
+            background: var(--bg-alt);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid #ddd;
+        }
+        
+        /* Quote */
+        .quote-box {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 20px;
+            font-style: italic;
+            background: #fdfaf2;
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Accordion CSS for FAQ */
+        .accordion {
+            background-color: #fff;
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            font-size: 1.1rem;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion:after {
+            content: '\002B';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            flex-shrink: 0;
+        }
+        .accordion.active:after {
+            content: "\2212";
+        }
+        .accordion:hover {
+            background-color: #f1f1f1;
+        }
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+        }
+        .panel p {
+            padding-bottom: 18px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .faq-item {
+            margin-bottom: 10px;
+            border: 1px solid #eaeaea;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        /* Form Section */
+        .form-section {
+            background-color: #1a252f;
+            color: #ffffff;
+        }
+        .form-section h2 { color: #ffffff; }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            color: var(--text-main);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eaeaea;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+        }
+        .trust-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111820;
+            color: #ecf0f1;
+            padding: 60px 20px 20px 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid h4 { color: #fff; margin-bottom: 20px;}
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #34495e;
+            font-size: 0.8rem;
+            color: #9ca3af;
+        }
+        .footer-grid ul { list-style: none; padding: 0; margin: 0; }
+        .footer-grid ul li { margin-bottom: 10px; }
+        .footer-grid a { 
+            color: #ecf0f1; 
+            text-decoration: none; 
+            transition: color 0.3s;
+            display: inline-block;
+        }
+        .footer-grid a:hover { color: var(--primary-color); }
+
+        /* =========================================
+           MOBILE RESPONSIVENESS (MEDIA QUERIES)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* --- NAVBAR MOBILE OVERLAY --- */
+            .nav-container {
+                padding: 15px 20px;
+            }
+            .logo img {
+                max-height: 35px;
+            }
+            .menu-toggle {
+                display: flex; 
+            }
+            .nav-links {
+                display: none; 
+                position: absolute; /* Drops down over the hero section */
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                flex-direction: column;
+                text-align: center;
+                gap: 0;
+                padding: 10px 0 20px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.05);
+                border-top: 1px solid #f4f7f6;
+            }
+            .nav-links.active {
+                display: flex; 
+            }
+            .nav-links a {
+                padding: 15px 20px;
+                width: 100%;
+                font-size: 1.1rem;
+                border-bottom: none; /* Removed harsh borders */
+            }
+            /* Fixed Mobile "Contacto" Button */
+            .nav-links a.btn-nav {
+                display: block; 
+                width: 80%; 
+                max-width: 300px;
+                margin: 10px auto 0 auto; /* Centers the button perfectly */
+                padding: 12px 20px;
+                border-radius: 6px;
+            }
+
+            /* Main Content Mobile */
+            .container {
+                padding: 40px 15px;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+            .hero {
+                padding: 60px 15px;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .hero .subtitle {
+                font-size: 1rem;
+            }
+            .btn-primary {
+                width: 100%;
+                padding: 15px 20px;
+            }
+            .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .flex-columns {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .flex-columns .col {
+                min-width: 100%;
+                width: 100%;
+            }
+            .accordion {
+                font-size: 1rem;
+                padding: 15px;
+            }
+            .form-container {
+                padding: 25px 15px;
+            }
+
+            /* --- FOOTER MOBILE --- */
+            footer {
+                padding: 40px 20px 20px 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: left; /* Left align is much cleaner for mobile lists */
+                gap: 35px;
+            }
+            .footer-grid h4 {
+                margin-bottom: 15px;
+                font-size: 1.2rem;
+            }
+            .footer-grid ul li a {
+                padding: 8px 0; /* Makes links much easier to tap on mobile */
+                display: block;
+            }
+            .footer-bottom {
+                margin-top: 30px;
+                font-size: 0.75rem;
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="WhatsApp Image 2026-02-06 at 6.38.52 PM.jpeg" alt="Onesto Management Consultancy Logo">
+            </a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <div class="nav-links" id="nav-links">
+                <a href="#cbam">¿Qué es el CBAM?</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contacto" class="btn-nav">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <span class="main-title">ASESORAMIENTO CBAM | ONESTO MANAGEMENT CONSULTANCY</span>
+        <h1>¿Tu empresa importa productos industriales desde fuera de la Unión Europea? El CBAM ya es obligatorio. Te ayudamos a cumplirlo.</h1>
+        <p class="subtitle">El Mecanismo de Ajuste en Frontera por Carbon de la Union Europea afecta ya a miles de empresas espanolas. Si importas acero, aluminio, fertilizantes, cemento, hidrogeno o electricidad de paises fuera de la UE - necesitas actuar ahora.</p>
+        <a href="#contacto" class="btn-primary">Habla con un experto CBAM →</a>
+        <span class="small-text">Consulta inicial gratuita. Sin compromiso.</span>
+    </header>
+
+    <section id="cbam" class="section-light container">
+        <h2>¿Que es el CBAM y por que te afecta?</h2>
+        <p>El CBAM (Carbon Border Adjustment Mechanism) es la nueva regulacion de la Union Europea que obliga a las empresas importadoras a declarar y compensar las emisiones de carbono generadas en la produccion de determinadas mercancias fuera de la UE. En terminos simples: si compras productos industriales de India, China, Turquia o cualquier pais sin precio de carbon equivalente al europeo, ahora tienes obligaciones legales ante la UE.</p>
+        
+        <h3>Productos afectados</h3>
+        <div class="chips">
+            <span class="chip">Acero y hierro</span>
+            <span class="chip">Aluminio</span>
+            <span class="chip">Cemento</span>
+            <span class="chip">Fertilizantes</span>
+            <span class="chip">Hidrogeno</span>
+            <span class="chip">Electricidad</span>
+        </div>
+        <p><small>(Ampliacion prevista a mas sectores a partir de 2026)</small></p>
+
+        <h3>Fechas clave</h3>
+        <ul>
+            <li><strong>Octubre 2023:</strong> Inicio del periodo de transicion CBAM</li>
+            <li><strong>Enero 2026:</strong> Fin del periodo transitorio - obligaciones plenas en vigor</li>
+            <li><strong>2034:</strong> Eliminacion gradual completa de derechos de emision gratuitos</li>
+        </ul>
+    </section>
+
+    <section class="section-alt container text-center">
+        <h2>No cumplir tiene consecuencias reales</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>🛡️ Sanciones economicas</h3>
+                <p>Las empresas que no declaren correctamente sus importaciones CBAM pueden enfrentarse a multas de hasta 50 euros por tonelada de CO2 no declarada.</p>
+            </div>
+            <div class="card">
+                <h3>📄 Obligacion de representante en la UE</h3>
+                <p>Si tu proveedor esta fuera de la UE, necesitas un representante acreditado en la Union Europea para gestionar tus declaraciones CBAM. Cualificar a ese representante implica un proceso administrativo complejo - te asesoramos en cada paso y organizamos todo el proceso, incluyendo soluciones digitales para gestionarlo.</p>
+            </div>
+            <div class="card">
+                <h3>⏳ El tiempo juega en tu contra</h3>
+                <p>Las obligaciones de declaracion son trimestrales. Cuanto antes pongas en orden tu cumplimiento, menos riesgo acumulado tienes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="section-light container">
+        <h2 class="text-center">Nuestro servicio CBAM, paso a paso</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Paso 1: Evaluacion de aplicabilidad</h3>
+                <p>Analizamos tus importaciones y te decimos exactamente si y como te afecta el CBAM - sin tecnicismos, con un informe claro y accionable.</p>
+            </div>
+            <div class="card">
+                <h3>Paso 2: Organizacion del proceso de registro del representante CBAM en la UE</h3>
+                <p>Obtener un representante declarante autorizado ante las autoridades aduaneras europeas implica un proceso administrativo exigente. Te acompanamos en cada fase: identificacion del representante adecuado, preparacion de la documentacion requerida, gestion de los tramites ante las autoridades competentes y, donde sea posible, implementacion de soluciones digitales para agilizar y automatizar el proceso.</p>
+            </div>
+            <div class="card">
+                <h3>Paso 3: Gestion de declaraciones trimestrales</h3>
+                <p>Preparamos y presentamos tus declaraciones CBAM dentro de los plazos legales. Tu no tienes que saber nada del proceso - nosotros lo llevamos.</p>
+            </div>
+            <div class="card">
+                <h3>Paso 4: Estrategia de cumplimiento a largo plazo</h3>
+                <p>Con la regulacion en constante evolucion, te mantenemos actualizado y adaptamos tu estrategia a los cambios normativos para que siempre estes un paso adelante.</p>
+            </div>
+            <div class="card">
+                <h3>Paso 5: Redaccion y revision de contratos importe-exportador conformes con CBAM</h3>
+                <p>Estructuramos los contratos comerciales entre importador y exportador para que reflejen correctamente las obligaciones CBAM de cada parte - incluyendo clausulas de responsabilidad sobre datos de emisiones, reparto de costes de certificados y obligaciones de informacion. Un contrato mal redactado puede generar conflictos costosos cuando llega la declaracion.</p>
+            </div>
+            <div class="card">
+                <h3>Paso 6: Soporte logistico con cumplimiento CBAM integrado</h3>
+                <p>EI CBAM no es solo un tramite documental - tiene implicaciones directas en la cadena logistica. Te ayudamos a integrar el cumplimiento CBAM en tus procesos de importacion: coordinacion con transitarios, revision de documentacion aduanera, recogida de datos de emision en origen y aseguramiento de la trazabilidad necesaria para la declaracion. Todo para que el proceso sea fluido y sin sorpresas en aduana.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-alt container">
+        <div class="flex-columns">
+            <div class="col">
+                <h2>La consultora que conoce India y Europa por dentro</h2>
+                <ul>
+                    <li>Sede en Bilbao conocemos el tejido industrial vasco y espanol</li>
+                    <li>Especialistas en el corredor comercial India-Europa</li>
+                    <li>Equipo con formacion juridica y en derecho corporativo europeo</li>
+                    <li>Experiencia practica en cumplimiento regulatorio transfronterizo</li>
+                    <li>Trato directo con los fundadores sin intermediarios ni juniors</li>
+                    <li>Servicio integral: desde la evaluacion hasta la declaracion final</li>
+                    <li>Redactamos contratos entre importador y exportador con clausulas CBAM correctamente estructuradas</li>
+                    <li>Soporte logistico integrado: coordinacion con transitarios, documentacion aduanera y trazabilidad de emisiones</li>
+                </ul>
+            </div>
+            <div class="col">
+                <div class="quote-box">
+                    <p>"EI CBAM no es solo una obligacion legal - es una oportunidad para las empresas que se preparan bien. Las que lleguen antes tendran ventaja competitiva frente a sus proveedores y competidores."</p>
+                    <p><strong>— Shashank Malik, Fundador y CEO, Onesto Management Consultancy</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="section-light container" style="background-color: #f9f9f9;">
+        <h2 class="text-center">Preguntas frecuentes sobre el CBAM</h2>
+        <div style="max-width: 800px; margin: 0 auto;" class="accordion-container">
+            
+            <div class="faq-item">
+                <button class="accordion">¿Mi empresa tiene que cumplir con el CBAM?</button>
+                <div class="panel">
+                    <p>Si importas en la UE cualquiera de los productos incluidos en el CBAM (acero, aluminio, cemento, fertilizantes, hidrogeno o electricidad) desde paises fuera de la Union Europea, si tienes obligaciones CBAM. El umbral de aplicabilidad es bajo: afecta desde pequenas empresas importadoras hasta grandes grupos industriales.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Que pasa si no hago nada?</button>
+                <div class="panel">
+                    <p>Las sanciones por incumplimiento son de hasta 50 euros por tonelada de CO2 no declarada. Ademas, las autoridades aduaneras pueden rechazar tus importaciones o exigirte regularizacion retroactiva. El riesgo reputacional con clientes y socios tambien es relevante.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Tengo que contratar un representante en la UE?</button>
+                <div class="panel">
+                    <p>Si tu proveedor o fabricante esta fuera de la UE como ocurre con India si necesitas un representante declarante en la Union Europea. Cualificar a ese representante es un proceso administrativo complejo con requisitos especificos ante las autoridades aduaneras. Onesto te asesora y organiza todo ese proceso: desde identificar la figura correcta hasta preparar la documentacion y gestionar los tramites, con apoyo de soluciones digitales cuando corresponda.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Cuando tengo que empezar?</button>
+                <div class="panel">
+                    <p>Ya. El periodo de transicion CBAM comenzo en octubre de 2023. Las obligaciones plenas entraron en vigor en enero de 2026. Si aun no has actuado, ahora es el momento no cuando llegue la primera sancion.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Cuanto cuesta vuestro servicio?</button>
+                <div class="panel">
+                    <p>Depende del volumen de importaciones, los productos y la frecuencia de declaraciones. La primera consulta es gratuita y sin compromiso en esa llamada te damos ya una orientacion clara sobre tu situacion especifica.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Podeis ayudarme a estructurar los contratos con mi proveedor extranjero teniendo en cuenta el CBAM?</button>
+                <div class="panel">
+                    <p>Si, es uno de los servicios que mas valor aporta y que mas se pasa por alto. Un contrato comercial entre importador y exportador que no contemple el CBAM puede generar conflictos serios: ¿quien es responsable de proporcionar los datos de emision? ¿quien asume el coste de los certificados si el exportador no colabora? Redactamos y revisamos contratos para que estas responsabilidades queden claras desde el principio, protegiendo a ambas partes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="accordion">¿Que tiene que ver la logistica con el CВАМ?</button>
+                <div class="panel">
+                    <p>Mas de lo que parece. El cumplimiento CBAM requiere datos que se generan en la cadena logistica: certificados de origen, datos de emision del proceso productivo en origen, documentacion aduanera actualizada y trazabilidad del producto. Si tu operacion logistica no esta coordinada con tus obligaciones CBAM, los datos que necesitas para la declaracion pueden llegar tarde, incompletos o no llegar. Trabajamos con tu equipo logistico y tus transitarios para que todo encaje.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contacto" class="form-section container text-center">
+        <h2>Empieza hoy. La primera consulta es gratuita.</h2>
+        <p style="margin-bottom: 30px;">Rellena el formulario y uno de nuestros expertos CBAM se pondra en contacto contigo en menos de 24 horas.</p>
+        
+        <div class="form-container">
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label>Nombre completo *</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Nombre de la empresa *</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Correo electronico *</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Telefono (opcional)</label>
+                    <input type="tel">
+                </div>
+                <div class="form-group">
+                    <label>¿Desde que paises importas actualmente?</label>
+                    <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>¿Cuales son tus principales productos de importacion?</label>
+                    <textarea rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">Solicitar consulta gratuita</button>
+            </form>
+            
+            <div class="trust-text">
+                ✔ Respuesta en menos de 24 horas<br>
+                ☑ Sin compromiso ni coste<br>
+                ☑ Tus datos estan protegidos no compartimos informacion con terceros
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; color: #9ca3af;">
+            <p>O contactanos directamente:<br>
+            connect@onestoconsultancy.com | +34 679 167 057<br>
+            Bilbao, Pais Vasco, Espana</p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h4>Onesto Management Consultancy</h4>
+                <p>Consultora especializada en el corredor comercial India-Europa. Servicios de entrada al mercado, busqueda de socios y cumplimiento regulatorio CВАМ.</p>
+            </div>
+            <div>
+                <h4>Enlaces rapidos</h4>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#cbam">Sobre nosotros</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#faq">CBAM</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contacto</h4>
+                <ul>
+                    <li>connect@onestoconsultancy.com</li>
+                    <li>+34 679 167 057</li>
+                    <li>Bilbao, Espana</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            ©2026 Onesto Management Consultancy. Todos los derechos reservados. | Politica de Privacidad | Aviso Legal
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
